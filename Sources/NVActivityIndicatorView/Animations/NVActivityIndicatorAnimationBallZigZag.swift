@@ -6,30 +6,11 @@
 
 // Copyright (c) 2016 Vinh Nguyen
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-
-#if canImport(UIKit)
 import UIKit
 import QuartzCore
 
 class NVActivityIndicatorAnimationBallZigZag: NVActivityIndicatorAnimationDelegate {
+    // MARK: Internal
 
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {
         let circleSize: CGFloat = size.width / 5
@@ -47,26 +28,28 @@ class NVActivityIndicatorAnimationBallZigZag: NVActivityIndicatorAnimationDelega
             NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0)),
             NSValue(caTransform3D: CATransform3DMakeTranslation(-deltaX, -deltaY, 0)),
             NSValue(caTransform3D: CATransform3DMakeTranslation(deltaX, -deltaY, 0)),
-            NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0))
+            NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0)),
         ]
         animation.duration = duration
         animation.repeatCount = HUGE
         animation.isRemovedOnCompletion = false
 
         // Draw circle 1
-        circleAt(frame: frame, layer: layer, size: CGSize(width: circleSize, height: circleSize), color: color, lineWidth: lineWidth, animation: animation)
+        self.circleAt(frame: frame, layer: layer, size: CGSize(width: circleSize, height: circleSize), color: color, lineWidth: lineWidth, animation: animation)
 
         // Circle 2 animation
         animation.values = [
             NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0)),
             NSValue(caTransform3D: CATransform3DMakeTranslation(deltaX, deltaY, 0)),
             NSValue(caTransform3D: CATransform3DMakeTranslation(-deltaX, deltaY, 0)),
-            NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0))
+            NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0)),
         ]
 
         // Draw circle 2
-        circleAt(frame: frame, layer: layer, size: CGSize(width: circleSize, height: circleSize), color: color, lineWidth: lineWidth, animation: animation)
+        self.circleAt(frame: frame, layer: layer, size: CGSize(width: circleSize, height: circleSize), color: color, lineWidth: lineWidth, animation: animation)
     }
+
+    // MARK: Private
 
     private func circleAt(frame: CGRect, layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?, animation: CAAnimation) {
         let circle = NVActivityIndicatorShape.circle.layerWith(size: size, color: color, lineWidth: lineWidth)
@@ -76,4 +59,3 @@ class NVActivityIndicatorAnimationBallZigZag: NVActivityIndicatorAnimationDelega
         layer.addSublayer(circle)
     }
 }
-#endif

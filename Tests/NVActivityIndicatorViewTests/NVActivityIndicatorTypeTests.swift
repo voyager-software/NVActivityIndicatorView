@@ -29,7 +29,6 @@ import XCTest
 @testable import NVActivityIndicatorView
 
 class NVActivityIndicatorTypeTests: XCTestCase {
-
     func testAnimation() {
         let enumClass: [NVActivityIndicatorType: NVActivityIndicatorAnimationDelegate.Type] = [
             .blank: NVActivityIndicatorAnimationBlank.self,
@@ -64,7 +63,7 @@ class NVActivityIndicatorTypeTests: XCTestCase {
             .ballRotateChase: NVActivityIndicatorAnimationBallRotateChase.self,
             .orbit: NVActivityIndicatorAnimationOrbit.self,
             .audioEqualizer: NVActivityIndicatorAnimationAudioEqualizer.self,
-            .circleStrokeSpin: NVActivityIndicatorAnimationCircleStrokeSpin.self
+            .circleStrokeSpin: NVActivityIndicatorAnimationCircleStrokeSpin.self,
         ]
 
         enumClass.forEach { enumm, clazz in

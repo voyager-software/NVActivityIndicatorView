@@ -6,29 +6,10 @@
 
 // Copyright (c) 2016 Vinh Nguyen
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-
-#if canImport(UIKit)
 import UIKit
 
 class NVActivityIndicatorAnimationBallSpinFadeLoader: NVActivityIndicatorAnimationDelegate {
+    // MARK: Internal
 
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {
         let circleSpacing: CGFloat = -2
@@ -64,18 +45,20 @@ class NVActivityIndicatorAnimationBallSpinFadeLoader: NVActivityIndicatorAnimati
 
         // Draw circles
         for i in 0 ..< 8 {
-            let circle = circleAt(angle: CGFloat(Double.pi / 4) * CGFloat(i),
-                                  size: circleSize,
-                                  origin: CGPoint(x: x, y: y),
-                                  containerSize: size,
-                                  color: color,
-                                  lineWidth: lineWidth)
+            let circle = self.circleAt(angle: CGFloat(Double.pi / 4) * CGFloat(i),
+                                       size: circleSize,
+                                       origin: CGPoint(x: x, y: y),
+                                       containerSize: size,
+                                       color: color,
+                                       lineWidth: lineWidth)
 
             animation.beginTime = beginTime + beginTimes[i]
             circle.add(animation, forKey: "animation")
             layer.addSublayer(circle)
         }
     }
+
+    // MARK: Private
 
     private func circleAt(angle: CGFloat, size: CGFloat, origin: CGPoint, containerSize: CGSize, color: UIColor, lineWidth: CGFloat?) -> CALayer {
         let radius = containerSize.width / 2 - size / 2
@@ -84,11 +67,11 @@ class NVActivityIndicatorAnimationBallSpinFadeLoader: NVActivityIndicatorAnimati
             x: origin.x + radius * (cos(angle) + 1),
             y: origin.y + radius * (sin(angle) + 1),
             width: size,
-            height: size)
+            height: size
+        )
 
         circle.frame = frame
 
         return circle
     }
 }
-#endif

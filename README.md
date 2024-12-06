@@ -1,9 +1,5 @@
 # NVActivityIndicatorView
 
-[![Build Status](https://github.com/ninjaprox/NVActivityIndicatorView/actions/workflows/ios.yml/badge.svg?event=push)](https://github.com/ninjaprox/NVActivityIndicatorView/actions/workflows/ios.yml)
-[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/NVActivityIndicatorView.svg)](https://img.shields.io/cocoapods/v/NVActivityIndicatorView.svg)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
 ⚠️ Check out [LoaderUI](https://github.com/ninjaprox/LoaderUI) (ready to use with Swift Package Mananger supported) for SwiftUI implementation of this. 🎉
 
 ## Introduction
@@ -27,22 +23,6 @@
 
 ## Installation
 
-### Cocoapods
-
-[Cocoapods](https://cocoapods.org/#install) is a dependency manager for Swift and Objective-C Cocoa projects. To use NVActivityIndicatorView with CocoaPods, add it in your `Podfile`.
-
-```ruby
-pod 'NVActivityIndicatorView'
-```
-
-### Carthage
-
-[Carthage](https://github.com/Carthage/Carthage#installing-carthage) is intended to be the simplest way to add frameworks to your Cocoa application. To use NVActivityIndicatorView with Carthage, add it in your `Cartfile`.
-
-```ruby
-github "ninjaprox/NVActivityIndicatorView"
-```
-
 ### Swift Package Manager
 
 The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. To use NVActivityIndicatorView with Swift Package Manger, add it to `dependencies` in your `Package.swift`
@@ -52,10 +32,6 @@ dependencies: [
     .package(url: "https://github.com/ninjaprox/NVActivityIndicatorView.git")
 ]
 ```
-
-## Migration
-
-Version [5.0.0](https://github.com/ninjaprox/NVActivityIndicatorView/releases/tag/5.0.0) comes with breaking changes. Please refer to the release note for details.
 
 ## Usage
 

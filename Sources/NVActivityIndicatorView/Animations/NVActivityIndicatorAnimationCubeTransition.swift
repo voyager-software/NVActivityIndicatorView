@@ -6,30 +6,9 @@
 
 // Copyright (c) 2016 Vinh Nguyen
 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-
-#if canImport(UIKit)
 import UIKit
 
 class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnimationDelegate {
-
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {
         let squareSize = size.width / 5
         let x = (layer.bounds.size.width - size.width) / 2
@@ -59,7 +38,7 @@ class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnimationDe
             NSValue(cgSize: CGSize(width: deltaX, height: 0)),
             NSValue(cgSize: CGSize(width: deltaX, height: deltaY)),
             NSValue(cgSize: CGSize(width: 0, height: deltaY)),
-            NSValue(cgSize: CGSize(width: 0, height: 0))
+            NSValue(cgSize: CGSize(width: 0, height: 0)),
         ]
         translateAnimation.duration = duration
 
@@ -71,7 +50,7 @@ class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnimationDe
         rotateAnimation.values = [0, -Double.pi / 2, -Double.pi, -1.5 * Double.pi, -2 * Double.pi]
         rotateAnimation.duration = duration
 
-        // Animation
+        // Animation
         let animation = CAAnimationGroup()
 
         animation.animations = [scaleAnimation, translateAnimation, rotateAnimation]
@@ -91,4 +70,3 @@ class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnimationDe
         }
     }
 }
-#endif
