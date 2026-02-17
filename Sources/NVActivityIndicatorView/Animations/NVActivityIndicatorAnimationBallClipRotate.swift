@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationBallClipRotate: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationBallClipRotate: NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth _: CGFloat?) {
         let duration: CFTimeInterval = 0.75
 

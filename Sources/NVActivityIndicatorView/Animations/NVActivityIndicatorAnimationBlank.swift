@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationBlank: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationBlank: NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in _: CALayer, size _: CGSize, color _: UIColor, lineWidth _: CGFloat?) {
         // Do nothing
     }

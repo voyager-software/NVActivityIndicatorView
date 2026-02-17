@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationBallTrianglePath: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationBallTrianglePath: NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {
         let circleSize = size.width / 5
         let deltaX = size.width / 2 - circleSize / 2

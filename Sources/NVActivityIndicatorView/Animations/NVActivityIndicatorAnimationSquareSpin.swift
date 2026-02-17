@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationSquareSpin: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationSquareSpin: NVActivityIndicatorAnimationDelegate {
     // MARK: Internal
 
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {

@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class NVActivityIndicatorAnimationBallZigZag: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationBallZigZag: NVActivityIndicatorAnimationDelegate {
     // MARK: Internal
 
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {

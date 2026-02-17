@@ -8,7 +8,6 @@
 
 import UIKit
 
-// swiftlint:disable:next class_delegate_protocol
-protocol NVActivityIndicatorAnimationDelegate {
+protocol NVActivityIndicatorAnimationDelegate: Sendable {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?)
 }

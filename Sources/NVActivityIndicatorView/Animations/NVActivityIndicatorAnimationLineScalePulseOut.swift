@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationLineScalePulseOut: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationLineScalePulseOut: NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {
         let lineSize = size.width / 9
         let x = (layer.bounds.size.width - size.width) / 2

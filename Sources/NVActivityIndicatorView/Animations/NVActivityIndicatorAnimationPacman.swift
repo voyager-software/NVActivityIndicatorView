@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationPacman: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationPacman: NVActivityIndicatorAnimationDelegate {
     // MARK: Internal
 
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {

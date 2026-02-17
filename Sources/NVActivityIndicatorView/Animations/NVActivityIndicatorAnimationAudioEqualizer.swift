@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationAudioEqualizer: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationAudioEqualizer: NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth _: CGFloat?) {
         let lineSize = size.width / 9
         let x = (layer.bounds.size.width - lineSize * 7) / 2

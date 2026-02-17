@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnimationDelegate {
+final class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?) {
         let squareSize = size.width / 5
         let x = (layer.bounds.size.width - size.width) / 2
