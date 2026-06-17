@@ -1,12 +1,16 @@
 # NVActivityIndicatorView
 
-⚠️ Check out [LoaderUI](https://github.com/ninjaprox/LoaderUI) (ready to use with Swift Package Mananger supported) for SwiftUI implementation of this. 🎉
-
-## Introduction
-
 `NVActivityIndicatorView` is a collection of awesome loading animations.
 
-![Demo](https://raw.githubusercontent.com/ninjaprox/NVActivityIndicatorView/master/Demo.gif)
+This is a modernized fork: Swift 6, main-actor isolated, with a built-in
+SwiftUI wrapper and accessibility support.
+
+![Demo](Demo.gif)
+
+## Requirements
+
+- iOS 16+ / tvOS 16+ / Mac Catalyst 16+
+- Swift 6.3 (Xcode 26+)
 
 ## Animation types
 
@@ -25,73 +29,92 @@
 
 ### Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. To use NVActivityIndicatorView with Swift Package Manger, add it to `dependencies` in your `Package.swift`
+Add it to `dependencies` in your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ninjaprox/NVActivityIndicatorView.git")
+    .package(url: "https://github.com/voyager-software/NVActivityIndicatorView.git", branch: "master")
 ]
 ```
 
 ## Usage
 
-Firstly, import `NVActivityIndicatorView`.
-
 ```swift
 import NVActivityIndicatorView
 ```
 
-### Initialization
+### SwiftUI
 
-Then, there are two ways you can create `NVActivityIndicatorView`:
-
--   By storyboard, changing class of any `UIView` to `NVActivityIndicatorView`.
-
-_**Note:** Set `Module` to `NVActivityIndicatorView`._
-
--   By code, using initializer. All parameters other than `frame` are optional and [`NVActivityIndicatorView.DEFAULT_*`](https://nvactivityindicatorview.vinhis.me/Classes/NVActivityIndicatorView.html) are used as default values.
+Use the `ActivityIndicator` view. It has no intrinsic size, so give it an
+explicit frame:
 
 ```swift
-NVActivityIndicatorView(frame: frame, type: type, color: color, padding: padding)
+import SwiftUI
+import NVActivityIndicatorView
+
+struct LoadingView: View {
+    @State private var isLoading = true
+
+    var body: some View {
+        ActivityIndicator(isAnimating: isLoading, type: .ballSpinFadeLoader, color: .white)
+            .frame(width: 50, height: 50)
+    }
+}
 ```
 
-### Control
+### UIKit
 
-Start animating.
+Create the view with its initializer. All parameters other than `frame` are
+optional and fall back to sensible defaults.
 
 ```swift
-activityIndicatorView.startAnimating()
+let indicator = NVActivityIndicatorView(
+    frame: CGRect(x: 0, y: 0, width: 50, height: 50),
+    type: .ballSpinFadeLoader,
+    color: .white,
+    padding: 0
+)
 ```
 
-Stop animating.
+You can also use it from a storyboard by changing the class of a `UIView` to
+`NVActivityIndicatorView` (set the module to `NVActivityIndicatorView`) and
+editing `color`, `lineWidth`, and `padding` in the Attributes inspector. The
+animation `type` must be set in code.
+
+Control animation:
 
 ```swift
-activityIndicatorView.stopAnimating()
+indicator.startAnimating()
+indicator.stopAnimating()
+let isAnimating = indicator.isAnimating
 ```
 
-Determine if it is animating.
+> **Note:** Change `type`, `color`, and other appearance properties before
+> calling `startAnimating()`.
+
+### Accessibility
+
+The view exposes itself to VoiceOver as a frequently-updating element with a
+default `"In progress"` label. Override `accessibilityLabel`, or set
+`isAccessibilityElement = false` to opt out.
+
+Set `respectsReduceMotion = true` to freeze the indicator in its initial frame
+while the system "Reduce Motion" setting is enabled, instead of looping:
 
 ```swift
-animating = activityIndicatorView.isAnimating
+indicator.respectsReduceMotion = true
 ```
-
-### Change properties
-
-In storyboard, you can change all properties in Attributes inspector tab of Utilities panel.
-
-_**Note:** Use one of values (case-insensitive) in [Animation types](#animation-types) for `Type Name`._
-
-All properties are public so you can change them after initializing.
-
-_**Note:** All changes must be made before calling `startAnimating()`._
-
-## Documentation
-
-https://nvactivityindicatorview.vinhis.me/
 
 ## Acknowledgment
 
-Thanks [Connor Atherton](https://github.com/ConnorAtherton) for inspired [Loaders.css](https://github.com/ConnorAtherton/loaders.css) and [Danil Gontovnik](https://github.com/gontovnik) for [DGActivityIndicatorView](https://github.com/gontovnik/DGActivityIndicatorView).
+Thanks [Connor Atherton](https://github.com/ConnorAtherton) for the inspiring
+[Loaders.css](https://github.com/ConnorAtherton/loaders.css) and
+[Danil Gontovnik](https://github.com/gontovnik) for
+[DGActivityIndicatorView](https://github.com/gontovnik/DGActivityIndicatorView).
+
+This is a fork of the original
+[NVActivityIndicatorView](https://github.com/ninjaprox/NVActivityIndicatorView)
+by [Vinh Nguyen](https://github.com/ninjaprox).
 
 ## License
 
