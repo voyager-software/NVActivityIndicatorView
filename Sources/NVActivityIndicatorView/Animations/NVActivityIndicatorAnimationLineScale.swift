@@ -25,7 +25,7 @@ final class NVActivityIndicatorAnimationLineScale: NVActivityIndicatorAnimationD
         animation.timingFunctions = [timingFunction, timingFunction]
         animation.values = [1, 0.4, 1]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw lines

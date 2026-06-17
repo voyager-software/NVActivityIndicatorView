@@ -38,7 +38,7 @@ final class NVActivityIndicatorAnimationBallBeat: NVActivityIndicatorAnimationDe
         animation.animations = [scaleAnimation, opacityAnimation]
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

@@ -55,7 +55,7 @@ final class NVActivityIndicatorAnimationCubeTransition: NVActivityIndicatorAnima
 
         animation.animations = [scaleAnimation, translateAnimation, rotateAnimation]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw squares

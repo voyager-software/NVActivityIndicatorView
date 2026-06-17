@@ -33,7 +33,7 @@ final class NVActivityIndicatorAnimationAudioEqualizer: NVActivityIndicatorAnima
                 animation.values?.append(path.cgPath)
             }
             animation.duration = duration[i]
-            animation.repeatCount = HUGE
+            animation.repeatCount = .infinity
             animation.isRemovedOnCompletion = false
 
             let line = NVActivityIndicatorShape.line.layerWith(size: CGSize(width: lineSize, height: size.height), color: color, lineWidth: nil)

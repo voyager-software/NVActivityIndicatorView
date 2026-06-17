@@ -27,7 +27,7 @@ final class NVActivityIndicatorAnimationBallPulseSync: NVActivityIndicatorAnimat
         animation.timingFunctions = [timingFunciton, timingFunciton, timingFunciton]
         animation.values = [0, deltaY, -deltaY, 0]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

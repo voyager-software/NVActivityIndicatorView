@@ -27,7 +27,7 @@ final class NVActivityIndicatorAnimationBallDoubleBounce: NVActivityIndicatorAni
         scaleAnimation.values = [-1, 0, -1]
 
         scaleAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        scaleAnimation.repeatCount = HUGE
+        scaleAnimation.repeatCount = .infinity
         scaleAnimation.isRemovedOnCompletion = false
 
         let circle = NVActivityIndicatorShape.circle.layerWith(size: size, color: color, lineWidth: lineWidth)

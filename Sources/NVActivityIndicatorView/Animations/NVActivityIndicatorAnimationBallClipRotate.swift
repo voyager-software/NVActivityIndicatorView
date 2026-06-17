@@ -30,7 +30,7 @@ final class NVActivityIndicatorAnimationBallClipRotate: NVActivityIndicatorAnima
         animation.animations = [scaleAnimation, rotateAnimation]
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circle

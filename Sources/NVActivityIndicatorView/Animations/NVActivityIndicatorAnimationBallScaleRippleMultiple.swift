@@ -36,7 +36,7 @@ final class NVActivityIndicatorAnimationBallScaleRippleMultiple: NVActivityIndic
 
         animation.animations = [scaleAnimation, opacityAnimation]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

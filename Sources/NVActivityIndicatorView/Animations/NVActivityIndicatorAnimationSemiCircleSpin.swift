@@ -18,7 +18,7 @@ final class NVActivityIndicatorAnimationSemiCircleSpin: NVActivityIndicatorAnima
         animation.keyTimes = [0, 0.5, 1]
         animation.values = [0, Double.pi, 2 * Double.pi]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circle

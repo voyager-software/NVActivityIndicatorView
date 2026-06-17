@@ -31,7 +31,7 @@ final class NVActivityIndicatorAnimationBallZigZag: NVActivityIndicatorAnimation
             NSValue(caTransform3D: CATransform3DMakeTranslation(0, 0, 0)),
         ]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circle 1

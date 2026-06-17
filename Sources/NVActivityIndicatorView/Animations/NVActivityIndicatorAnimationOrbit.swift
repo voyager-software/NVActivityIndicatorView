@@ -46,7 +46,7 @@ final class NVActivityIndicatorAnimationOrbit: NVActivityIndicatorAnimationDeleg
 
         animation.animations = [scaleAnimation, opacityAnimation]
         animation.duration = self.duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circle
@@ -84,7 +84,7 @@ final class NVActivityIndicatorAnimationOrbit: NVActivityIndicatorAnimationDeleg
 
         animation.animations = [scaleAnimation, opacityAnimation]
         animation.duration = self.duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circle
@@ -111,7 +111,7 @@ final class NVActivityIndicatorAnimationOrbit: NVActivityIndicatorAnimationDeleg
         scaleAnimation.timingFunctions = [inTimingFunction, standByTimingFunction, outTimingFunction]
         scaleAnimation.values = [1, 1.3, 1.3, 1]
         scaleAnimation.duration = self.duration
-        scaleAnimation.repeatCount = HUGE
+        scaleAnimation.repeatCount = .infinity
         scaleAnimation.isRemovedOnCompletion = false
 
         // Draw circle
@@ -136,7 +136,7 @@ final class NVActivityIndicatorAnimationOrbit: NVActivityIndicatorAnimationDeleg
                                             endAngle: CGFloat(Double.pi * 1.5 + 4 * Double.pi),
                                             clockwise: true).cgPath
         rotateAnimation.duration = self.duration * 2
-        rotateAnimation.repeatCount = HUGE
+        rotateAnimation.repeatCount = .infinity
         rotateAnimation.isRemovedOnCompletion = false
 
         // Draw circle

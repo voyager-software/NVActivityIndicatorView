@@ -25,7 +25,7 @@ final class NVActivityIndicatorAnimationBallGridBeat: NVActivityIndicatorAnimati
         animation.keyTimes = [0, 0.5, 1]
         animation.timingFunctions = [timingFunction, timingFunction]
         animation.values = [1, 0.7, 1]
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

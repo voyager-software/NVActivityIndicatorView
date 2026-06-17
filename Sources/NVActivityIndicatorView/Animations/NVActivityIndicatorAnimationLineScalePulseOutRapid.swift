@@ -26,7 +26,7 @@ final class NVActivityIndicatorAnimationLineScalePulseOutRapid: NVActivityIndica
         animation.beginTime = beginTime
         animation.values = [1, 0.3, 1]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw lines

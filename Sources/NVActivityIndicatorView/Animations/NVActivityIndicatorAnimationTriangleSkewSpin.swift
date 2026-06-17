@@ -28,7 +28,7 @@ final class NVActivityIndicatorAnimationTriangleSkewSpin: NVActivityIndicatorAni
             NSValue(caTransform3D: CATransform3DConcat(self.createRotateXTransform(angle: 0), self.createRotateYTransform(angle: 0))),
         ]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw triangle

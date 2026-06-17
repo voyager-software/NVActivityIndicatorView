@@ -35,7 +35,7 @@ final class NVActivityIndicatorAnimationBallRotate: NVActivityIndicatorAnimation
 
         animation.animations = [scaleAnimation, rotateAnimation]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

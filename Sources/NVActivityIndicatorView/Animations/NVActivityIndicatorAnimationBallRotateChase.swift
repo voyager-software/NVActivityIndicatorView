@@ -33,14 +33,14 @@ final class NVActivityIndicatorAnimationBallRotateChase: NVActivityIndicatorAnim
         // Scale animation
         let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
         scaleAnimation.duration = duration
-        scaleAnimation.repeatCount = HUGE
+        scaleAnimation.repeatCount = .infinity
         scaleAnimation.fromValue = fromScale
         scaleAnimation.toValue = toScale
 
         // Position animation
         let positionAnimation = CAKeyframeAnimation(keyPath: "position")
         positionAnimation.duration = duration
-        positionAnimation.repeatCount = HUGE
+        positionAnimation.repeatCount = .infinity
         positionAnimation.path = UIBezierPath(arcCenter: CGPoint(x: x, y: y), radius: size.width / 2, startAngle: CGFloat(3 * Double.pi * 0.5), endAngle: CGFloat(3 * Double.pi * 0.5 + 2 * Double.pi), clockwise: true).cgPath
 
         // Aniamtion
@@ -48,7 +48,7 @@ final class NVActivityIndicatorAnimationBallRotateChase: NVActivityIndicatorAnim
         animation.animations = [scaleAnimation, positionAnimation]
         animation.timingFunction = timeFunc
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         return animation

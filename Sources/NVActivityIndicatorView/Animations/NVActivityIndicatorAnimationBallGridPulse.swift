@@ -37,7 +37,7 @@ final class NVActivityIndicatorAnimationBallGridPulse: NVActivityIndicatorAnimat
         let animation = CAAnimationGroup()
 
         animation.animations = [scaleAnimation, opacityAnimation]
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

@@ -44,7 +44,7 @@ final class NVActivityIndicatorAnimationPacman: NVActivityIndicatorAnimationDele
 
         animation.animations = [strokeStartAnimation, strokeEndAnimation]
         animation.duration = pacmanDuration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw pacman
@@ -85,7 +85,7 @@ final class NVActivityIndicatorAnimationPacman: NVActivityIndicatorAnimationDele
         animation.animations = [translateAnimation, opacityAnimation]
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
         animation.duration = circleDuration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circles

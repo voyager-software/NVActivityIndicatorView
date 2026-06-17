@@ -56,7 +56,7 @@ final class NVActivityIndicatorAnimationBallClipRotateMultiple: NVActivityIndica
 
         animation.animations = [scaleAnimation, rotateAnimation]
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         return animation

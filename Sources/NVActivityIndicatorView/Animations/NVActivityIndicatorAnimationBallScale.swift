@@ -32,7 +32,7 @@ final class NVActivityIndicatorAnimationBallScale: NVActivityIndicatorAnimationD
         animation.animations = [scaleAnimation, opacityAnimation]
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.duration = duration
-        animation.repeatCount = HUGE
+        animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
 
         // Draw circle
