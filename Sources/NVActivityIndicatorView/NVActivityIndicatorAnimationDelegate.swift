@@ -8,6 +8,7 @@
 
 import UIKit
 
-protocol NVActivityIndicatorAnimationDelegate: Sendable {
+@MainActor
+protocol NVActivityIndicatorAnimationDelegate {
     func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, lineWidth: CGFloat?)
 }
