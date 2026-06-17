@@ -33,7 +33,7 @@ Add it to `dependencies` in your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/voyager-software/NVActivityIndicatorView.git", branch: "master")
+    .package(url: "https://github.com/voyager-software/NVActivityIndicatorView.git", from: "6.2.0")
 ]
 ```
 
