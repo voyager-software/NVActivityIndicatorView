@@ -52,13 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -n "${{ matrix.sim_runtime }}" ]; then
-            udid=$(xcrun simctl list devices available --json \
-              | python3 -c 'import json,sys
-runtime, pattern = sys.argv[1], sys.argv[2]
-devices = json.load(sys.stdin)["devices"]
-ids = [d["udid"] for rt, devs in devices.items() if runtime in rt
-       for d in devs if pattern in d["name"]]
-print(ids[0] if ids else "")' "${{ matrix.sim_runtime }}" "${{ matrix.device_pattern }}")
+            udid=$(xcrun simctl list devices available --json | python3 -c 'import json,sys; devices=json.load(sys.stdin)["devices"]; ids=[d["udid"] for rt,devs in devices.items() if sys.argv[1] in rt for d in devs if sys.argv[2] in d["name"]]; print(ids[0] if ids else "")' "${{ matrix.sim_runtime }}" "${{ matrix.device_pattern }}")
             if [ -z "$udid" ]; then
               echo "No available ${{ matrix.device_pattern }} simulator for ${{ matrix.sim_runtime }}" >&2
               xcrun simctl list devices available >&2
