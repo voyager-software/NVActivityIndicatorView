@@ -76,8 +76,6 @@ public final class NVActivityIndicatorView: UIView {
         }
     }
 
-    // swiftlint:enable identifier_name
-
     /// Animation type.
     public var type: NVActivityIndicatorType = NVDefaults.DEFAULT_TYPE
 
