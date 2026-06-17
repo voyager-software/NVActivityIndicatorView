@@ -12,10 +12,10 @@ concurrency:
 jobs:
   test:
     name: ${{ matrix.name }}
-    # NOTE: This package requires Swift 6.3 (Xcode 26+). The job only passes on a
-    # runner image that ships that toolchain. Bump `runs-on` / pin a specific
-    # Xcode below once GitHub-hosted images include it, or use a self-hosted runner.
-    runs-on: macos-15
+    # This package requires Swift 6.3, so it needs the macOS 26 image (Xcode 26+).
+    # The older `macos-15` / `macos-latest` images ship Xcode 16 and fail package
+    # resolution on the swift-tools-version: 6.3 manifest.
+    runs-on: macos-26
     strategy:
       fail-fast: false
       matrix:
@@ -31,7 +31,7 @@ jobs:
             command: build
             destination: "platform=macOS,variant=Mac Catalyst"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Select newest available Xcode
         uses: maxim-lobanov/setup-xcode@v1
