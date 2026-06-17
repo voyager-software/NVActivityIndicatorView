@@ -24,6 +24,8 @@ public final class NVActivityIndicatorView: UIView {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clear
         isHidden = true
+        self.configureAccessibility()
+        self.observeReduceMotion()
     }
 
     /**
@@ -45,6 +47,8 @@ public final class NVActivityIndicatorView: UIView {
         self.padding = padding ?? NVDefaults.DEFAULT_PADDING
         super.init(frame: frame)
         isHidden = true
+        self.configureAccessibility()
+        self.observeReduceMotion()
     }
 
     // MARK: Public
@@ -85,6 +89,18 @@ public final class NVActivityIndicatorView: UIView {
     /// Padding of activity indicator view.
     @IBInspectable public var padding: CGFloat = NVDefaults.DEFAULT_PADDING
 
+    /// When `true`, the animation is not played while the system "Reduce Motion"
+    /// accessibility setting is enabled; the indicator is instead shown frozen in
+    /// its initial frame so the loading state stays visible without motion.
+    /// Defaults to `false`, preserving the previous always-animate behavior.
+    public var respectsReduceMotion: Bool = false {
+        didSet {
+            if oldValue != self.respectsReduceMotion, self.isAnimating {
+                self.setUpAnimation()
+            }
+        }
+    }
+
     /// Current status of animation, read-only.
     public private(set) var isAnimating: Bool = false
 
@@ -101,7 +117,6 @@ public final class NVActivityIndicatorView: UIView {
         }
         isHidden = false
         self.isAnimating = true
-        layer.speed = 1
         self.setUpAnimation()
     }
 
@@ -145,6 +160,43 @@ public final class NVActivityIndicatorView: UIView {
 
     // MARK: Private
 
+    /// Whether the current animation should be frozen rather than played.
+    private var shouldFreezeForReduceMotion: Bool {
+        self.respectsReduceMotion && UIAccessibility.isReduceMotionEnabled
+    }
+
+    /// Exposes the indicator to assistive technologies as a single,
+    /// frequently-updating element. While stopped the view is hidden, so
+    /// VoiceOver automatically ignores it. Adopters can override
+    /// `accessibilityLabel`, or set `isAccessibilityElement = false` to opt out.
+    private final func configureAccessibility() {
+        isAccessibilityElement = true
+        accessibilityTraits.insert(.updatesFrequently)
+        if accessibilityLabel == nil {
+            accessibilityLabel = "In progress"
+        }
+    }
+
+    /// Re-applies the animation when "Reduce Motion" is toggled while running,
+    /// so the frozen/playing state stays in sync with the system setting.
+    /// The observer is removed automatically when the view is deallocated.
+    private final func observeReduceMotion() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.reduceMotionStatusChanged),
+            name: UIAccessibility.reduceMotionStatusDidChangeNotification,
+            object: nil
+        )
+    }
+
+    @objc
+    private final func reduceMotionStatusChanged() {
+        guard self.isAnimating else {
+            return
+        }
+        self.setUpAnimation()
+    }
+
     private final func setUpAnimation() {
         let animation: NVActivityIndicatorAnimationDelegate = self.type.animation()
         var animationRect = frame.inset(by: UIEdgeInsets(top: self.padding, left: self.padding, bottom: self.padding, right: self.padding))
@@ -153,5 +205,7 @@ public final class NVActivityIndicatorView: UIView {
         layer.sublayers = nil
         animationRect.size = CGSize(width: minEdge, height: minEdge)
         animation.setUpAnimation(in: self.layer, size: animationRect.size, color: self.color, lineWidth: self.lineWidth)
+        // Freezing at speed 0 leaves the shapes drawn in their initial frame.
+        layer.speed = self.shouldFreezeForReduceMotion ? 0 : 1
     }
 }
