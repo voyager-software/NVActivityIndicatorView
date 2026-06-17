@@ -149,6 +149,24 @@ class NVActivityIndicatorViewTests: XCTestCase {
         XCTAssertFalse(view.layer.sublayers?.isEmpty ?? true)
     }
 
+    func testReturningFromBackgroundRebuildsAnimationWhileAnimating() {
+        let view = self.makeSizedView()
+        view.startAnimating()
+        let firstLayer = view.layer.sublayers?.first.map(ObjectIdentifier.init)
+
+        // The system strips CAAnimations on background; becoming active must
+        // rebuild them so the indicator does not come back frozen.
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        XCTAssertFalse(view.layer.sublayers?.isEmpty ?? true)
+        XCTAssertNotEqual(view.layer.sublayers?.first.map(ObjectIdentifier.init), firstLayer)
+    }
+
+    func testReturningFromBackgroundDoesNothingWhenNotAnimating() {
+        let view = self.makeSizedView()
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        XCTAssertNil(view.layer.sublayers)
+    }
+
     // MARK: Private
 
     private var activityIndicatorView = NVActivityIndicatorView(frame: .zero)

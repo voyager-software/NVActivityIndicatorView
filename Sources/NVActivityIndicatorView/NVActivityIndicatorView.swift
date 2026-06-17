@@ -25,7 +25,7 @@ public final class NVActivityIndicatorView: UIView {
         backgroundColor = UIColor.clear
         isHidden = true
         self.configureAccessibility()
-        self.observeReduceMotion()
+        self.registerForNotifications()
     }
 
     /**
@@ -48,7 +48,7 @@ public final class NVActivityIndicatorView: UIView {
         super.init(frame: frame)
         isHidden = true
         self.configureAccessibility()
-        self.observeReduceMotion()
+        self.registerForNotifications()
     }
 
     // MARK: Public
@@ -175,20 +175,34 @@ public final class NVActivityIndicatorView: UIView {
         }
     }
 
-    /// Re-applies the animation when "Reduce Motion" is toggled while running,
-    /// so the frozen/playing state stays in sync with the system setting.
-    /// The observer is removed automatically when the view is deallocated.
-    private final func observeReduceMotion() {
-        NotificationCenter.default.addObserver(
+    /// Registers for the notifications that require the running animation to be
+    /// re-applied. Observers are removed automatically when the view is
+    /// deallocated.
+    private final func registerForNotifications() {
+        let center = NotificationCenter.default
+
+        // "Reduce Motion" toggled: re-apply so the frozen/playing state stays in
+        // sync with the system setting.
+        center.addObserver(
             self,
-            selector: #selector(self.reduceMotionStatusChanged),
+            selector: #selector(self.reapplyAnimationIfNeeded),
             name: UIAccessibility.reduceMotionStatusDidChangeNotification,
+            object: nil
+        )
+
+        // Returning from background: the system strips CAAnimations off layers
+        // (even with isRemovedOnCompletion = false), so a running indicator would
+        // come back frozen unless we rebuild it.
+        center.addObserver(
+            self,
+            selector: #selector(self.reapplyAnimationIfNeeded),
+            name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
     }
 
     @objc
-    private final func reduceMotionStatusChanged() {
+    private final func reapplyAnimationIfNeeded() {
         guard self.isAnimating else {
             return
         }
