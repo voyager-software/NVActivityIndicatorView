@@ -87,7 +87,73 @@ class NVActivityIndicatorViewTests: XCTestCase {
         XCTAssertTrue(self.activityIndicatorView.layer.sublayers == nil)
     }
 
+    func testStartAnimatingAddsSublayers() {
+        let view = self.makeSizedView()
+        XCTAssertNil(view.layer.sublayers)
+        view.startAnimating()
+        XCTAssertFalse(view.layer.sublayers?.isEmpty ?? true)
+    }
+
+    func testStartAnimatingIsIdempotent() {
+        let view = self.makeSizedView()
+        view.startAnimating()
+        let firstLayer = view.layer.sublayers?.first.map(ObjectIdentifier.init)
+
+        // Second call must be a no-op: the animation is not torn down and rebuilt.
+        view.startAnimating()
+        XCTAssertTrue(view.isAnimating)
+        XCTAssertEqual(view.layer.sublayers?.first.map(ObjectIdentifier.init), firstLayer)
+    }
+
+    func testStopAnimatingWhenNotAnimatingIsNoOp() {
+        let view = self.makeSizedView()
+        XCTAssertFalse(view.isAnimating)
+        view.stopAnimating()
+        XCTAssertFalse(view.isAnimating)
+        XCTAssertTrue(view.isHidden)
+    }
+
+    func testBoundsChangeRebuildsAnimationWhileAnimating() {
+        let view = self.makeSizedView()
+        view.startAnimating()
+        let firstLayer = view.layer.sublayers?.first.map(ObjectIdentifier.init)
+
+        view.bounds = CGRect(x: 0, y: 0, width: 80, height: 80)
+        XCTAssertFalse(view.layer.sublayers?.isEmpty ?? true)
+        // setUpAnimation clears and recreates sublayers, so the instances differ.
+        XCTAssertNotEqual(view.layer.sublayers?.first.map(ObjectIdentifier.init), firstLayer)
+    }
+
+    func testBoundsChangeDoesNothingWhenNotAnimating() {
+        let view = self.makeSizedView()
+        view.bounds = CGRect(x: 0, y: 0, width: 80, height: 80)
+        XCTAssertNil(view.layer.sublayers)
+    }
+
+    func testAccessibilityConfiguration() {
+        let view = self.makeSizedView()
+        XCTAssertTrue(view.isAccessibilityElement)
+        XCTAssertEqual(view.accessibilityLabel, "In progress")
+        XCTAssertTrue(view.accessibilityTraits.contains(.updatesFrequently))
+    }
+
+    func testRespectsReduceMotionDefaultsFalse() {
+        XCTAssertFalse(self.makeSizedView().respectsReduceMotion)
+    }
+
+    func testTogglingRespectsReduceMotionWhileAnimatingKeepsAnimating() {
+        let view = self.makeSizedView()
+        view.startAnimating()
+        view.respectsReduceMotion = true
+        XCTAssertTrue(view.isAnimating)
+        XCTAssertFalse(view.layer.sublayers?.isEmpty ?? true)
+    }
+
     // MARK: Private
 
     private var activityIndicatorView = NVActivityIndicatorView(frame: .zero)
+
+    private func makeSizedView() -> NVActivityIndicatorView {
+        NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    }
 }
