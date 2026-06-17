@@ -20,12 +20,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # For simulator platforms a concrete device is resolved at runtime
+          # (see "Resolve destination"), since device names vary by Xcode image.
           - name: iOS
             command: test
-            destination: "platform=iOS Simulator,name=iPhone 16,OS=latest"
+            sim_runtime: iOS
+            device_pattern: iPhone
           - name: tvOS
             command: test
-            destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation),OS=latest"
+            sim_runtime: tvOS
+            device_pattern: Apple TV
           - name: Mac Catalyst
             # The Catalyst test host can be flaky on CI, so only build there.
             command: build
@@ -43,9 +47,32 @@ jobs:
           xcodebuild -version
           swift --version
 
+      - name: Resolve destination
+        id: destination
+        run: |
+          set -euo pipefail
+          if [ -n "${{ matrix.sim_runtime }}" ]; then
+            udid=$(xcrun simctl list devices available --json \
+              | python3 -c 'import json,sys
+runtime, pattern = sys.argv[1], sys.argv[2]
+devices = json.load(sys.stdin)["devices"]
+ids = [d["udid"] for rt, devs in devices.items() if runtime in rt
+       for d in devs if pattern in d["name"]]
+print(ids[0] if ids else "")' "${{ matrix.sim_runtime }}" "${{ matrix.device_pattern }}")
+            if [ -z "$udid" ]; then
+              echo "No available ${{ matrix.device_pattern }} simulator for ${{ matrix.sim_runtime }}" >&2
+              xcrun simctl list devices available >&2
+              exit 1
+            fi
+            echo "value=platform=${{ matrix.sim_runtime }} Simulator,id=$udid" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${{ matrix.destination }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: ${{ matrix.command }} (${{ matrix.name }})
         run: |
           set -o pipefail
+          echo "Destination: ${{ steps.destination.outputs.value }}"
           xcodebuild ${{ matrix.command }} \
             -scheme NVActivityIndicatorView \
-            -destination "${{ matrix.destination }}"
+            -destination "${{ steps.destination.outputs.value }}"
