@@ -8,14 +8,6 @@
 
 import UIKit
 
-/// Function that performs fade in/out animation.
-public typealias FadeInAnimation = (UIView) -> Void
-
-/// Function that performs fade out animation.
-///
-/// - Note: Must call the second parameter on the animation completion.
-public typealias FadeOutAnimation = (UIView, @escaping () -> Void) -> Void
-
 /// Activity indicator view with nice animations
 public final class NVActivityIndicatorView: UIView {
     // MARK: Lifecycle
@@ -56,27 +48,6 @@ public final class NVActivityIndicatorView: UIView {
     }
 
     // MARK: Public
-
-    /// Default fade in animation.
-    public static var DEFAULT_FADE_IN_ANIMATION: FadeInAnimation = { view in
-        view.alpha = 0
-        UIView.animate(withDuration: 0.25) {
-            view.alpha = 1
-        }
-    }
-
-    /// Default fade out animation.
-    public static var DEFAULT_FADE_OUT_ANIMATION: FadeOutAnimation = { view, complete in
-        UIView.animate(withDuration: 0.25,
-                       animations: {
-                           view.alpha = 0
-                       },
-                       completion: { completed in
-                           if completed {
-                               complete()
-                           }
-                       })
-    }
 
     // Fix issue #62
     // Intrinsic content size is used in autolayout

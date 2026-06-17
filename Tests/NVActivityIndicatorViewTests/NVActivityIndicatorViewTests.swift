@@ -25,10 +25,6 @@ class NVActivityIndicatorViewTests: XCTestCase {
         XCTAssertEqual(NVDefaults.DEFAULT_TYPE, NVActivityIndicatorType.ballSpinFadeLoader)
         XCTAssertEqual(NVDefaults.DEFAULT_COLOR, UIColor.white)
         XCTAssertEqual(NVDefaults.DEFAULT_PADDING, 0)
-        XCTAssertEqual(NVDefaults.DEFAULT_BLOCKER_SIZE, CGSize(width: 60, height: 60))
-        XCTAssertEqual(NVDefaults.DEFAULT_BLOCKER_MINIMUM_DISPLAY_TIME, 0)
-        XCTAssertEqual(NVDefaults.DEFAULT_BLOCKER_DISPLAY_TIME_THRESHOLD, 0)
-        XCTAssertEqual(NVDefaults.DEFAULT_BLOCKER_BACKGROUND_COLOR, UIColor(red: 0, green: 0, blue: 0, alpha: 0.5))
     }
 
     func testSetTypeName() {
